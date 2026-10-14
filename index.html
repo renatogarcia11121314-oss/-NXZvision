@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NXZvision – Gerador de Sensi + Game Turbo para Free Fire</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Barlow:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#06020d;--card:#14082a;--line:#3a1d6e;--p:#9b4dff;--p2:#c79bff;--p3:#5b1fd6;--tx:#f5efff;--mu:#b4a6d0;--ok:#6dffb0;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:500 17px/1.55 Barlow,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,.rz{font-family:'Russo One',system-ui,sans-serif;font-weight:400;line-height:1.05;margin:0}
+a{color:inherit}
+.w{max-width:1040px;margin:0 auto;padding:0 20px;position:relative}
+/* fundo em movimento */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.b1{position:absolute;inset:-50%;background:
+ repeating-linear-gradient(115deg,transparent 0 46px,rgba(155,77,255,.10) 46px 48px),
+ repeating-linear-gradient(115deg,transparent 0 160px,rgba(155,77,255,.16) 160px 164px);animation:slide 18s linear infinite}
+.b2{position:absolute;inset:-20%;opacity:.55;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='520'%3E%3Cg fill='none' stroke='%239b4dff' stroke-width='2' opacity='.35'%3E%3Cpath d='M40 120l60-80 60 80-60 80z'/%3E%3Cpath d='M330 60l90 40-40 90-90-40z'/%3E%3Cpath d='M120 380l70-30 30 70-70 30z'/%3E%3Cpath d='M400 340l50-60 60 50-50 60z'/%3E%3Ccircle cx='260' cy='260' r='34'/%3E%3C/g%3E%3C/svg%3E");animation:drift 40s linear infinite}
+.o{position:absolute;border-radius:50%;filter:blur(90px);animation:float 14s ease-in-out infinite alternate}
+.o1{width:480px;height:480px;background:#6d28ff;opacity:.45;top:-120px;right:-120px}
+.o2{width:380px;height:380px;background:#c026d3;opacity:.28;bottom:-100px;left:-100px;animation-delay:-6s}
+#pt{position:absolute;inset:0;width:100%;height:100%}
+@keyframes slide{to{transform:translate3d(220px,0,0)}}
+@keyframes drift{to{background-position:520px 520px}}
+@keyframes float{to{transform:translate(-70px,90px) scale(1.2)}}
+/* topo */
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 20px}
+.logo{font-size:22px;letter-spacing:.5px;transform:skewX(-8deg)}
+.logo b{color:var(--p2);text-shadow:0 0 18px var(--p)}
+/* botão */
+.btn{display:inline-block;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--p),var(--p3));color:#fff;font:400 18px 'Russo One',sans-serif;padding:16px 30px;text-decoration:none;border:0;cursor:pointer;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);animation:pulse 2.4s ease-in-out infinite}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3s ease-in-out infinite}
+.btn.sm{padding:10px 20px;font-size:15px;animation:none}
+.btn.ghost{background:transparent;box-shadow:inset 0 0 0 2px var(--p);clip-path:none;border-radius:4px;animation:none}
+.btn.ghost::after{display:none}
+.gw{display:inline-block;animation:gw 1.8s ease-in-out infinite}
+.gw .btn.big{animation:none;font-size:clamp(20px,5.4vw,26px);padding:22px 46px;background:linear-gradient(135deg,#c026d3,var(--p) 45%,var(--p3));clip-path:polygon(16px 0,100% 0,calc(100% - 16px) 100%,0 100%);text-transform:uppercase;letter-spacing:.5px}
+.gw .btn.big::before{content:"🔥 "}
+@keyframes gw{0%,100%{transform:scale(1);filter:drop-shadow(0 0 10px rgba(192,38,211,.7))}50%{transform:scale(1.06);filter:drop-shadow(0 0 26px rgba(155,77,255,1))}}
+.btn.ghost.neon{font-size:clamp(18px,4.8vw,22px);padding:20px 34px;color:var(--p2);border-radius:6px;box-shadow:inset 0 0 0 2px var(--p2),0 0 24px rgba(155,77,255,.55);text-shadow:0 0 12px var(--p);transition:background .2s,color .2s,transform .2s}
+.btn.ghost.neon::before{content:"▶ "}
+.btn.ghost.neon:hover{background:var(--p);color:#fff;transform:translateY(-3px)}
+@keyframes pulse{50%{filter:drop-shadow(0 0 18px rgba(155,77,255,.9))}}
+@keyframes shine{0%,55%{left:-80%}100%{left:140%}}
+:focus-visible{outline:2px solid var(--p2);outline-offset:3px}
+/* hero */
+.hero{padding:20px 0 64px}
+.g{display:grid;gap:36px;align-items:center;text-align:center;justify-items:center}
+.hero h1{font-size:clamp(38px,10vw,72px);text-transform:uppercase;position:relative;text-shadow:0 0 30px rgba(155,77,255,.55)}
+.hero h1 span{display:block;color:var(--p2)}
+.hero h1.gl{animation:gl 5s infinite}
+@keyframes gl{0%,92%,100%{transform:none;text-shadow:0 0 30px rgba(155,77,255,.55)}93%{transform:translate(-3px,1px);text-shadow:3px 0 #ff2bd6,-3px 0 #2be3ff}95%{transform:translate(3px,-1px);text-shadow:-3px 0 #ff2bd6,3px 0 #2be3ff}97%{transform:none}}
+.hero p{color:var(--mu);font-size:19px;margin:18px auto 26px;max-width:560px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center}
+.trust{display:flex;gap:8px 18px;flex-wrap:wrap;justify-content:center;margin-top:24px;color:var(--mu);font-size:15px}
+.trust span::before{content:"✓ ";color:var(--ok)}
+/* gerador */
+.gen{background:rgba(20,8,42,.82);backdrop-filter:blur(6px);border:2px solid var(--line);padding:22px;clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px));position:relative}
+.gen::before{content:"";position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--p2),transparent);animation:scan 3.2s linear infinite}
+@keyframes scan{from{top:0}to{top:100%}}
+.gen h3{font-size:22px}
+.gen small{color:var(--mu)}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.sel label{font-size:14px;color:var(--mu);display:block;margin-bottom:4px}
+.sel select{width:100%;background:#0b0418;color:var(--tx);border:1px solid var(--line);padding:11px;font:inherit}
+.row{margin:11px 0}
+.row div{display:flex;justify-content:space-between;font-size:15px;margin-bottom:4px}
+.row b{font:400 18px 'Russo One';color:var(--p2)}
+.bar{height:9px;background:#24104a;transform:skewX(-20deg)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p3),var(--p2));box-shadow:0 0 12px var(--p);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.gen .btn{width:100%;margin-top:14px;clip-path:none}
+/* marquee */
+.mq{background:var(--p);transform:rotate(-1.6deg);margin:0 -10px;overflow:hidden;white-space:nowrap;border-block:3px solid #000;box-shadow:0 0 40px rgba(155,77,255,.6)}
+.mq div{display:inline-block;padding:12px 0;font:400 20px 'Russo One';animation:mq 22s linear infinite}
+.mq span{margin:0 26px}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{padding:72px 0}
+h2{font-size:clamp(28px,6vw,44px);margin-bottom:12px;text-transform:uppercase;transform:skewX(-6deg)}
+h2::after{content:"";display:block;width:90px;height:5px;background:var(--p);margin-top:10px;box-shadow:0 0 16px var(--p)}
+.sub{color:var(--mu);max-width:540px;margin:0 0 34px}
+/* produtos */
+.two{display:grid;gap:22px}
+.box{background:var(--card);padding:28px;border-left:5px solid var(--p);clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%);transition:transform .25s,box-shadow .25s}
+.box:hover{transform:translateY(-6px) rotate(-.5deg);box-shadow:0 18px 40px rgba(155,77,255,.25)}
+.ico{font-size:40px;display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(6deg)}}
+.box h3{font-size:26px;margin:6px 0 8px}
+.box p{color:var(--mu);margin:0 0 12px}
+.box ul{margin:0;padding:0;list-style:none}
+.box li{padding:7px 0 7px 22px;position:relative;border-top:1px solid var(--line)}
+.box li::before{content:"";position:absolute;left:2px;top:15px;width:9px;height:9px;background:var(--p2);transform:rotate(45deg)}
+/* passos */
+.steps{display:grid;gap:16px;counter-reset:s}
+.st{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--line)}
+.st::before{counter-increment:s;content:counter(s);flex:none;width:54px;height:54px;background:var(--p);display:grid;place-items:center;font:400 28px 'Russo One';transform:skewX(-10deg);box-shadow:0 0 22px rgba(155,77,255,.7)}
+.st h3{font-size:21px;margin-bottom:3px}
+.st p{margin:0;color:var(--mu)}
+/* planos */
+.plans{display:grid;gap:26px}
+.plan{background:var(--card);padding:30px;position:relative;border:2px solid var(--line)}
+.plan.hot{border:0;padding:32px;background:linear-gradient(var(--card),var(--card)) padding-box,conic-gradient(from var(--a,0deg),var(--p3),var(--p2),#ff2bd6,var(--p3)) border-box;border:3px solid transparent;animation:spin 5s linear infinite}
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes spin{to{--a:360deg}}
+.tag{position:absolute;top:-16px;right:18px;background:var(--p);font:400 14px 'Russo One';padding:6px 14px;transform:skewX(-10deg)}
+.plan h3{font-size:24px}
+.price{font:400 50px 'Russo One';margin:10px 0 0;color:var(--p2)}
+.price small{font:500 16px Barlow;color:var(--mu)}
+.plan ul{list-style:none;padding:0;margin:16px 0 24px}
+.plan li{padding:6px 0;color:var(--mu)}
+.plan li::before{content:"✓ ";color:var(--ok)}
+.plan .btn{width:100%;text-align:center}
+.gar{margin-top:30px;padding:20px;border:2px dashed var(--p);text-align:center;color:var(--mu)}
+.gar b{color:var(--tx)}
+details{background:var(--card);border-left:4px solid var(--p);margin-bottom:12px;padding:16px 18px}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--p2);font-size:24px;line-height:1;transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mu);margin:10px 0 0}
+.final{text-align:center}
+.final h2{transform:none}
+.final h2::after{margin:10px auto 0}
+.final p{color:var(--mu);margin:14px auto 26px;max-width:480px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--mu);font-size:14px;text-align:center;background:rgba(6,2,13,.8)}
+/* entrada ao rolar */
+.rv{opacity:0;transform:translateY(34px) scale(.97);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+@media(min-width:760px){
+.two,.plans{grid-template-columns:1fr 1fr}
+.steps{grid-template-columns:repeat(3,1fr)}
+.st{flex-direction:column;border-top:0;border-left:2px solid var(--line);padding:6px 0 6px 20px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="bg" aria-hidden="true"><div class="b1"></div><div class="b2"></div><div class="o o1"></div><div class="o o2"></div><canvas id="pt"></canvas></div>
+
+<header class="w top">
+  <div class="logo rz">NXZ<b>vision</b></div>
+  <a class="btn sm" href="#planos">Quero o meu</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="w g">
+    <div>
+      <h1 class="gl">Mira no ponto.<span>Celular sem lag.</span></h1>
+      <p>Gere a sensi certa pro seu aparelho e seu jeito de jogar, e ative o Game Turbo pra rodar o Free Fire sem engasgar.</p>
+      <div class="cta">
+        <span class="gw"><a class="btn big" href="#planos">Comprar agora</a></span>
+        <a class="btn ghost neon" href="#como">Como funciona</a>
+      </div>
+      <div class="trust"><span>Acesso na hora</span><span>Android e iPhone</span><span>Suporte no WhatsApp</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true"><div><span>Sensi na medida</span><span>★</span><span>Sem lag</span><span>★</span><span>FPS estável</span><span>★</span><span>Mira firme</span><span>★</span><span>Sensi na medida</span><span>★</span><span>Sem lag</span><span>★</span><span>FPS estável</span><span>★</span><span>Mira firme</span><span>★</span></div></div>
+
+<section>
+  <div class="w">
+    <h2 class="rv">Dois itens. Um objetivo.</h2>
+    <p class="sub rv">Um acerta sua mira, o outro libera seu celular. Juntos, você joga mais solto.</p>
+    <div class="two">
+      <div class="box rv">
+        <span class="ico">🎯</span>
+        <h3>Gerador de Sensi</h3>
+        <p>Pare de copiar a sensi de quem não joga igual a você.</p>
+        <ul>
+          <li>Valores de Geral, Red Dot, 2x, 4x, AWM e Olhadinha</li>
+          <li>Ajustada ao seu aparelho e ao seu estilo</li>
+          <li>Gere de novo quantas vezes quiser</li>
+          <li>Passo a passo pra aplicar no jogo</li>
+        </ul>
+      </div>
+      <div class="box rv">
+        <span class="ico">⚡</span>
+        <h3>Game Turbo</h3>
+        <p>Libera o aparelho pro Free Fire usar o que ele tem de melhor.</p>
+        <ul>
+          <li>Fecha o que roda em segundo plano</li>
+          <li>Ajuda a reduzir travadas e queda de FPS</li>
+          <li>Ajustes de rede e gráficos recomendados</li>
+          <li>Ativação simples, sem enrolação técnica</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como">
+  <div class="w">
+    <h2 class="rv">Como funciona</h2>
+    <p class="sub rv">Em poucos minutos você já está treinando com a sensi nova.</p>
+    <div class="steps">
+      <div class="st rv"><span><h3>Escolha o plano</h3><p>Pagou, recebeu o acesso na hora.</p></span></div>
+      <div class="st rv"><span><h3>Gere a sensi</h3><p>Diga seu aparelho e estilo, copie os valores pro jogo.</p></span></div>
+      <div class="st rv"><span><h3>Ative o Turbo</h3><p>Siga o guia, abra o Free Fire e partiu.</p></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="planos">
+  <div class="w">
+    <h2 class="rv">Escolha seu plano</h2>
+    <p class="sub rv">Pagamento único. Sem mensalidade.</p>
+    <div class="plans">
+      <div class="plan rv">
+        <h3>Só a Sensi</h3>
+        <div class="price">R$ 14,90 <small>único</small></div>
+        <ul><li>Gerador de Sensi completo</li><li>Guia de aplicação no jogo</li><li>Suporte no WhatsApp</li></ul>
+        <a class="btn ghost" href="https://go.pepperpay.com.br/yuzzz" target="_blank" rel="noopener" data-link="checkout-sensi">Comprar o Gerador</a>
+      </div>
+      <div class="plan hot rv">
+        <span class="tag">Mais escolhido</span>
+        <h3>Sensi + Game Turbo</h3>
+        <div class="price">R$ 24,90 <small>único</small></div>
+        <ul><li>Gerador de Sensi completo</li><li>Game Turbo com guia de ativação</li><li>Atualizações incluídas</li><li>Suporte no WhatsApp</li></ul>
+        <a class="btn" href="https://go.pepperpay.com.br/m0coq" target="_blank" rel="noopener" data-link="checkout-combo">Quero o combo</a>
+      </div>
+    </div>
+    <div class="gar rv"><b>7 dias de garantia.</b> Não curtiu? Peça o reembolso e devolvemos o valor.</div>
+  </div>
+</section>
+
+<section>
+  <div class="w">
+    <h2 class="rv">Dúvidas</h2>
+    <p class="sub rv">As perguntas mais comuns, respondidas.</p>
+    <details class="rv"><summary>Funciona no meu celular?</summary><p>Sim. O gerador serve para Android e iPhone, e o Game Turbo tem guia para cada sistema.</p></details>
+    <details class="rv"><summary>Pode dar ban?</summary><p>A sensi é uma configuração do próprio jogo. O Game Turbo usa recursos do sistema e não mexe nos arquivos do Free Fire.</p></details>
+    <details class="rv"><summary>Como recebo o acesso?</summary><p>Assim que o pagamento é confirmado, tudo chega por e-mail e WhatsApp.</p></details>
+    <details class="rv"><summary>Como funciona a garantia?</summary><p>Você tem 7 dias para pedir o reembolso, sem burocracia.</p></details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="w">
+    <h2 class="rv">Bora pra próxima partida?</h2>
+    <p class="rv">Pegue sua sensi e ative o Turbo antes de entrar na queda.</p>
+    <a class="btn rv" href="#planos">Escolher meu plano</a>
+  </div>
+</section>
+</main>
+
+
+<script>
+(function(){
+  /* revelar ao rolar */
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    els.forEach(function(e){io.observe(e)});
+  }else{els.forEach(function(e){e.classList.add('in')})}
+  /* partículas */
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var c=document.getElementById('pt'),x=c.getContext('2d'),W,H,P=[];
+  function rs(){W=c.width=innerWidth;H=c.height=innerHeight}
+  rs();addEventListener('resize',rs);
+  for(var i=0;i<55;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.4+.6,v:Math.random()*.9+.3,d:Math.random()*2-1});
+  (function loop(){
+    x.clearRect(0,0,W,H);
+    P.forEach(function(p){
+      p.y-=p.v;p.x+=p.d*.3;
+      if(p.y<-10){p.y=H+10;p.x=Math.random()*W}
+      x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);
+      x.fillStyle='rgba(199,155,255,'+(.25+p.r/4)+')';x.shadowBlur=12;x.shadowColor='#9b4dff';x.fill();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+</body>
+</html>
